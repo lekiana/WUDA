@@ -30,8 +30,8 @@ jobs:
     - name: Run Safety scan
       run: |
         pip install safety
-        safety check --file=back-end/requirements.txt --full-report
-        safety check --file=front-end/requirements.txt --full-report
+        safety scan --file=back-end/requirements.txt --full-report
+        safety scan --file=front-end/requirements.txt --full-report
         
     - name: Analysing the code with pylint
       run: |
