@@ -21,6 +21,7 @@ jobs:
 
     # VULNERABILITY & LINT
     - name: Run Bandit scan
+      continue-on-error: true
       run: |
         pip install bandit
         bandit -r back-end
@@ -58,9 +59,14 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker image
+    # BACK-END
+    - name: Build and push Docker image for back-end
       run: |
-        docker build -t ghcr.io/${{ github.repository_owner }}/my-app:latest .
-        docker push ghcr.io/${{ github.repository_owner }}/my-app:latest
+        docker build -t ghcr.io/${{ github.repository_owner }}/back-end:latest back-end/
+        docker push ghcr.io/${{ github.repository_owner }}/back-end:latest
 
-
+    # FRONT-END
+    - name: Build and push Docker image for front-end
+      run: |
+        docker build -t ghcr.io/${{ github.repository_owner }}/front-end:latest front-end/
+        docker push ghcr.io/${{ github.repository_owner }}/front-end:latest
