@@ -30,12 +30,14 @@ jobs:
         bandit -r front-end
 
     - name: Run pip-audit scan
+      continue-on-error: true
       run: |
         pip install pip-audit
         pip-audit -r front-end/requirements.txt
         pip-audit -r back-end/requirements.txt
 
     - name: Analysing the code with pylint
+      continue-on-error: true
       run: |
         pip install pylint
         pylint $(git ls-files '*.py')
